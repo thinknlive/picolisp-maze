@@ -1,0 +1,2 @@
+# picolisp-maze
+(de amaze)
