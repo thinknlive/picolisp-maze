@@ -38,13 +38,13 @@
 
 (de amaze (N W C Opt)
    (let
-      (C0 (or (car C) "╱")
-         C1 (or (cadr C) "╲")
-         CF0 (car (caddr C))
-         CF1 (cadr (caddr C))
-         M 0
-         I 0
-         P
+      (C0 (or (car C) "╱")       # Bit 0
+         C1 (or (cadr C) "╲")    # Bit 1
+         CF0 (car (caddr C))     # Byte Separator 0
+         CF1 (cadr (caddr C))    # Byte Separator 1
+         M 0                     # When to write separator
+         I 0                     # When to write newline
+         P                       # Write 'bit' to output channel
          '((X)
             (if (and (gt0 W) (=0 (% I W)))
                (wr 10) )
@@ -57,11 +57,11 @@
       (while
          (and
             (or (== N T) (gt0 N))
-            (rd 1) )
-         (mapcar
+            (rd 1) )             # Read byte from input channel
+         (mapcar                 # Convert to 'bits' and write output channel
             '((X) (P X) (inc 'M))
             (byte2bin @ Opt) )
-        (if (gt0 (% M 8))
+        (if (gt0 (% M 8))        # If <8bit bytes, write separator
           (case (rand 1 2)
              (1 (and CF0 (P CF0)))
              (2 (and CF1 (P CF1))) ) )
@@ -73,8 +73,8 @@
    (let
       (C0 (or (car C) "/")          # Bit 0
          C1 (or (cadr C) "\\")      # Bit 1
-         CF0 (car (caddr C))        # Byte Separator 1
-         CF1 (cadr (caddr C))       # Byte Separator 0
+         CF0 (car (caddr C))        # Byte Separator 0
+         CF1 (cadr (caddr C))       # Byte Separator 1
          M 0                        # When to write separator
          I 0                        # When to write newline
          P                          # Write 'bit' to output channel
@@ -96,8 +96,8 @@
                   (byte2bin @ Opt) )
                (if (gt0 (% M 8))    # If <8bit bytes, write separator
                   (case (rand 1 2)
-                     (1 (and CF0 (P "-")))
-                     (2 (and CF1 (P "+"))) ) )
+                     (1 (and CF0 (P CF0)))
+                     (2 (and CF1 (P CF1))) ) )
                (if (gt0 N) (dec 'N)) ) ) )
 
 # -------------------------------------------------------------------
