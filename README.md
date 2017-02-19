@@ -1,5 +1,6 @@
 # picolisp-maze
 (de amaze)
+(de rmaze)
 
 When you get carried away with '10 PRINT'.
 
