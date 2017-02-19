@@ -41,7 +41,7 @@
          (mapcar
             '((X) (Put X) (inc 'M))
             (byte2bin @ Opt) )
-         (if (gt0 (% M 8)) (Put (Sel CF)))
+         (if (gt0 (% M 8)) (prog (Put (Sel CF)) (setq M 0)))
          (if (gt0 N) (dec 'N)) ) ) )
 
 # -------------------------------------------------------------------
@@ -101,9 +101,10 @@
          '(NIL
             (let (V (bin2byte Byte))
                (nil
-                  '(prin "[" Byte " " V " " (char V) "]") )
+                  '(prin "^J[" Byte " " V " " (char V) "] ") )
                (and Byte (wr V))
                (setq Byte NIL  N 0) ) ) )
+      (nil '(println Bit0 Bit1))
       (while (setq C (char))
          (if (and (gt0 N) (=0 (% N 8)))
             (Put) )
