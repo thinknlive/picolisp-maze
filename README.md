@@ -133,8 +133,6 @@ Other mazes...
 <hr>
 ### License
 
-#### The MIT License (MIT)
-
 <small>
 Copyright (c) Lindsay Lawrence
 
